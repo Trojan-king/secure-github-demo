@@ -23,3 +23,22 @@ jobs:
 
       - name: Run unit tests
         run: pytest
+
+  lint:
+    name: Python Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install requirements
+        run: pip install -r requirements.txt
+
+      - name: Check Python code
+        run: flake8 . --exclude=.git,.venv,__pycache__ --max-line-length=88
